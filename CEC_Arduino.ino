@@ -28,10 +28,8 @@ void setup()
   digitalWrite(OUT_LINE, LOW);
   delay(200);
 
-  l = '\0';
-
   Serial.begin(115200);
-  //device.MonitorMode = true;
+  device.MonitorMode = true;
   device.Promiscuous = true;
   device.Initialize(CEC_LogicalDevice::CDT_PLAYBACK_DEVICE);
 }

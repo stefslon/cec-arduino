@@ -54,8 +54,7 @@ void DbgPrint(const char* fmt, ...)
        
         char c;
         char* addr = FormatBuffer;
-        
-        Serial.print("DEBUG: ");
+
         while ((c = *addr++))
         {
           Serial.print(c);

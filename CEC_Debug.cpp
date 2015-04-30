@@ -531,7 +531,7 @@ char *stringp(const char *pstr)
 void printp(const char *pstr)
 {
   while(pgm_read_byte(pstr) != 0x00)
-    Serial.print(pgm_read_byte(pstr++));
+    Serial.print(char(pgm_read_byte(pstr++)));
 }
 void print_physical_address(unsigned char *p)
 {
