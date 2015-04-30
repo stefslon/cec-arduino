@@ -1,9 +1,11 @@
 #include "CEC_Device.h"
+#include "cli.h"
 
 #define IN_LINE 2
 #define OUT_LINE 3
 
-CEC_Device device(0x1000);
+//CEC_Device device(0x1000);
+extern CEC_Device device(0x4000);
 
 bool XX_GetLineState()
 {
@@ -38,7 +40,8 @@ void loop()
 {
   if (Serial.available())
   {
-    unsigned char c = Serial.read();
+    /*
+	unsigned char c = Serial.read();
     unsigned char buffer[3];
     
     Serial.print(" Read: ");
@@ -71,6 +74,10 @@ void loop()
         break; 
         
     }
+	*/
+	
+	cliProcessInput();
+	
   }
   device.Run();
 }

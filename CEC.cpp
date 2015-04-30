@@ -69,7 +69,8 @@ bool CEC_LogicalDevice::ProcessStateMachine(bool* success)
 					else
 					{
 						_logicalAddress = CLA_UNREGISTERED;
-						DbgPrint("Logical address assigned: %d\n", _logicalAddress);
+						DbgPrint("Logical address assigned: %d\r\n", _logicalAddress);
+						DbgPrint("Physical addresss used: %d\r\n", _physicalAddress);
 						_primaryState = CEC_READY;
 					}
 				}
@@ -78,7 +79,8 @@ bool CEC_LogicalDevice::ProcessStateMachine(bool* success)
 					// We hereby claim this as our logical address!
 					_logicalAddress = _validLogicalAddresses[_deviceType][_tertiaryState];
 					SetAddress(_logicalAddress);
-					DbgPrint("Logical address assigned: %d\n", _logicalAddress);
+					DbgPrint("Logical address assigned: %d\r\n", _logicalAddress);
+					DbgPrint("Physical addresss used: %d\r\n", _physicalAddress);
 					_primaryState = CEC_READY;
 				}
 			}

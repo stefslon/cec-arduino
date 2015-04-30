@@ -30,7 +30,7 @@ void CEC_Device::OnReceive(int source, int dest, unsigned char* buffer, int coun
   DbgPrint("Packet received at %ld: %d -> %d\n", millis(), source, dest);
   for (int i = 0; i < count; i++)
     DbgPrint("%02X ", buffer[i]);
-  DbgPrint("\n");
+  DbgPrint("\r\n");
 }
 
 bool CEC_Device::LineState()

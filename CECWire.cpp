@@ -393,6 +393,7 @@ unsigned long CEC_Electrical::Process()
 			{
 				// This is a state change from an ACK and isn't part of our state
 				// tracking.
+								DbgPrint("Ack Received\r\n");
                                 waitTime = -2;
 				break;
 			}
