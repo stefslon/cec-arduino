@@ -1,9 +1,11 @@
-#include "CEC_Player.h"
+#include "CEC_Device.h"
+#include "cli.h"
 
-#define IN_LINE 10 // was 2
-#define OUT_LINE 11 // was 3
+#define IN_LINE 12
+#define OUT_LINE 11
 
-CEC_Player device(0x1000);
+//CEC_Device device(0x1000);
+extern CEC_Device device(0x4000);
 
 bool XX_GetLineState()
 {
@@ -29,42 +31,64 @@ void setup()
   delay(200);
 
   Serial.begin(115200);
-  device.MonitorMode = true;
-  device.Promiscuous = true;
+  device.MonitorMode = false;  // only receive and do not transmit
+  device.Promiscuous = true;   // listen in on all CEC line transmissions
   device.Initialize(CEC_LogicalDevice::CDT_PLAYBACK_DEVICE);
 }
 
 void loop()
 {
+  /* Usage help:
+     Target Logical Address <space> CEC Command <enter>
+     
+     Examples:
+     0 9f   <-- ask TV for CEC version
+     1 46   <-- ask Raspberry Pi for OSD name
+     
+  */
+  
   if (Serial.available())
   {
-    unsigned char c = Serial.read();
+    /*
+	unsigned char c = Serial.read();
+    unsigned char buffer[3];
+    
+    Serial.print(" Read: ");
+    Serial.println(char(c));
     
     switch (c)
     {
-      case 'd':
-        device.debug = ! device.debug;
-        Serial.print("DEBUG ");
-        Serial.println(device.debug?"ON":"OFF");
-        break;
-      case 'r':
-        device.raw = ! device.raw;
-        Serial.print("RAW ");
-        Serial.println(device.raw?"ON":"OFF");
-        break;
-      case '0':
-        device.Transmit(15, 1, COP_STANDBY);
-        break;
       case '1':
-        device.Transmit(0,  1, COP_IMAGE_VIEW_ON);
-        break;
+        DbgPrint("<Image View On>\r\n");
+        buffer[0] = 0x04;
+        device.TransmitFrame(0, buffer, 1);
+        
+        DbgPrint("<Set Stream Path >\r\n"); // tv HDMI1, Reciever HDMI4 selected
+        buffer[0] = 0x82; 
+        buffer[1] = 0x14;
+        buffer[2] = 0x00;
+        device.TransmitFrame(15, buffer, 3);
+      
       case '2':
-        device.Transmit(15, 3, COP_ACTIVE_SOURCE, 0x10, 0x00);
+        DbgPrint("<Standby>\r\n");
+        buffer[0] = 0x36;   // <Standby>
+        device.TransmitFrame(15, buffer, 1);
         break;
-      default:
-        Serial.println("HELP (d) DEBUG (r) RAW (0) TV OFF (1) TV ON (2) HTPC");
-        break;
+        
+      case 'w':
+        DbgPrint("<Send OSD name>\r\n");
+        buffer[0] = 0x47; // <Set OSD Name>
+        memcpy(buffer+1, "Andrew-HTPC", 11);
+        device.TransmitFrame(target, buffer, 12);
+        break; 
+        
     }
+	*/
+	
+	cliProcessInput();
+	
   }
   device.Run();
 }
+
+

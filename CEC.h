@@ -69,13 +69,13 @@ private:
 
 private:
 	static int _validLogicalAddresses[6][5];
-	int _logicalAddress;
 	int _physicalAddress;
-	unsigned long _waitTime;
+	int _logicalAddress;
 	bool _done;
+	unsigned long _waitTime;
 
-	CEC_DEVICE_TYPE _deviceType;
 	CEC_PRIMARY_STATE _primaryState;
+	CEC_DEVICE_TYPE _deviceType;
 	CEC_SECONDARY_STATE _secondaryState;
 	int _tertiaryState;
 

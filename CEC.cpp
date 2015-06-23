@@ -136,7 +136,7 @@ void CEC_LogicalDevice::OnTransmitComplete(bool success)
 			;
 	}
         else
-          DbgPrint("Transmit: %d\n", success);
+          DbgPrint("Transmit: %d\n\n", success);
 }
 
 void CEC_LogicalDevice::Run()
